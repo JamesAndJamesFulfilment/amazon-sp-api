@@ -407,8 +407,7 @@ self::ORDER_STATUS_PENDING_AVAILABILITY,        ];
     {
         return [
             self::FULFILLMENT_CHANNEL_MFN,
-self::FULFILLMENT_CHANNEL_AFN,
-            'SellerFulfilled'];
+self::FULFILLMENT_CHANNEL_AFN];
     }
     /**
      * Gets allowable values of the enum
