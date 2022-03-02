@@ -26,27 +26,27 @@ public function getAccessToken($channel_account): string
 }
 
 public function prepareRequestConfig($channel_account, $token): array
-    {
-        $auth_details = $channel_account->getAuthDetail();
-        $region_key   = $auth_details['region'];
-        $region       = AmazonSPAPIRegion::$$region_key;
-        $endpoint     = AmazonSPAPIEndpoint::$$region_key;
-        $assumedRole  = AssumeRole::assume(
-            $region,
-            $this->iam_user_access_key,
-            $this->iam_user_secret_key,
-            $this->iam_role_arn,
-        );
+{
+    $auth_details = $channel_account->getAuthDetail();
+    $region_key   = $auth_details['region'];
+    $region       = AmazonSPAPIRegion::$$region_key;
+    $endpoint     = AmazonSPAPIEndpoint::$$region_key;
+    $assumedRole  = AssumeRole::assume(
+        $region,
+        $this->iam_user_access_key,
+        $this->iam_user_secret_key,
+        $this->iam_role_arn,
+    );
 
-        $config = Configuration::getDefaultConfiguration();
-        $config->setAccessToken($token);
-        $config->setAccessKey($assumedRole->getAccessKeyId());
-        $config->setSecretKey($assumedRole->getSecretAccessKey());
-        $config->setRegion($region);
-        $config->setSecurityToken($assumedRole->getSessionToken());
+    $config = Configuration::getDefaultConfiguration();
+    $config->setAccessToken($token);
+    $config->setAccessKey($assumedRole->getAccessKeyId());
+    $config->setSecretKey($assumedRole->getSecretAccessKey());
+    $config->setRegion($region);
+    $config->setSecurityToken($assumedRole->getSessionToken());
 
-        return $config;
-    }
+    return $config;
+}
 ```
 
 
