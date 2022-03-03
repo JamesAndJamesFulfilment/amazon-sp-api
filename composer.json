@@ -30,5 +30,5 @@
     "autoload": {
         "psr-4": { "JJFulfilment\\AmazonSPAPI\\" : "lib/" }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
