@@ -156,7 +156,6 @@ class TaxCollection implements ModelInterface, ArrayAccess
     }
 
     const MODEL_MARKETPLACE_FACILITATOR = 'MarketplaceFacilitator';
-const RESPONSIBLE_PARTY_AMAZON_SERVICES_INC = 'Amazon Services, Inc.';
 
     /**
      * Gets allowable values of the enum
@@ -167,16 +166,6 @@ const RESPONSIBLE_PARTY_AMAZON_SERVICES_INC = 'Amazon Services, Inc.';
     {
         return [
             self::MODEL_MARKETPLACE_FACILITATOR,        ];
-    }
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getResponsiblePartyAllowableValues()
-    {
-        return [
-            self::RESPONSIBLE_PARTY_AMAZON_SERVICES_INC,        ];
     }
 
     /**
@@ -211,14 +200,6 @@ const RESPONSIBLE_PARTY_AMAZON_SERVICES_INC = 'Amazon Services, Inc.';
         if (!is_null($this->container['model']) && !in_array($this->container['model'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
                 "invalid value for 'model', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
-
-        $allowedValues = $this->getResponsiblePartyAllowableValues();
-        if (!is_null($this->container['responsible_party']) && !in_array($this->container['responsible_party'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'responsible_party', must be one of '%s'",
                 implode("', '", $allowedValues)
             );
         }
@@ -290,15 +271,9 @@ const RESPONSIBLE_PARTY_AMAZON_SERVICES_INC = 'Amazon Services, Inc.';
      */
     public function setResponsibleParty($responsible_party)
     {
-        $allowedValues = $this->getResponsiblePartyAllowableValues();
-        if (!is_null($responsible_party) && !in_array($responsible_party, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'responsible_party', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
+        // Accept any value - Amazon returns different entities per marketplace
+        // (e.g., "Amazon Services, Inc.", "Amazon Commercial Services Pty Ltd")
+        // and their schema documentation is incomplete
         $this->container['responsible_party'] = $responsible_party;
 
         return $this;
